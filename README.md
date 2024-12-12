@@ -65,15 +65,64 @@ Host github.com-account1
     IdentityFile ~/.ssh/id_ed25519_account1
 ```
 
-## Cloning Repositories
+## Repository Operations
 
-After setup, clone repositories using the account-specific host:
+### Cloning Repositories
+
+Clone repositories using the account-specific host:
 ```bash
 # For account1
 git clone git@github.com-account1:username/repo.git
 
 # For account2
 git clone git@github.com-account2:username/repo.git
+```
+
+### Pushing to a Repository
+
+For a new repository:
+```bash
+git init
+git add .
+git commit -m "your commit message"
+git branch -M main
+git remote add origin git@github.com-accountname:username/repo.git
+git push -u origin main
+```
+
+For subsequent pushes:
+```bash
+git add .
+git commit -m "your commit message"
+git push
+```
+
+### Pulling from a Repository
+
+For first time:
+```bash
+git clone git@github.com-accountname:username/repo.git
+```
+
+To update existing repository:
+```bash
+git pull
+```
+
+### Useful Commands
+
+```bash
+# Check remote URL
+git remote -v
+
+# Change remote URL if needed
+git remote set-url origin git@github.com-accountname:username/repo.git
+
+# Check current branch
+git branch
+
+# Check status
+git status
 ```
 
 ## Troubleshooting
@@ -94,6 +143,46 @@ ssh-add -l
 ```bash
 git config user.name
 git config user.email
+```
+
+### Logout and Remove Configuration
+
+To remove git configuration and logout:
+
+1. Remove global git configuration:
+```bash
+# Remove user name
+git config --global --unset user.name
+
+# Remove email
+git config --global --unset user.email
+
+# Remove entire global config
+rm ~/.gitconfig
+```
+
+2. Remove stored credentials:
+```bash
+# For Windows
+git config --global --unset credential.helper
+
+# For macOS
+git config --global --unset credential.helper osxkeychain
+
+# For Linux
+git config --global --unset credential.helper cache
+```
+
+3. Remove SSH keys:
+```bash
+# List SSH keys
+ssh-add -l
+
+# Remove specific key
+ssh-add -d ~/.ssh/id_ed25519
+
+# Remove all keys
+ssh-add -D
 ```
 
 ## Contributing
